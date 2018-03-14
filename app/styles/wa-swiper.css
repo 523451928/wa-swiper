@@ -1,0 +1,108 @@
+ .wa-swiper-wrap {
+     position: relative;
+     width: 100%;
+     height: auto;
+     background: #fff;
+     overflow: hidden;
+ }
+
+ .wa-swiper-wrap li {
+     float: left;
+     line-height: 1;
+ }
+
+ .wa-swiper-wrap .carousel-control {
+     cursor: pointer;
+     position: absolute;
+     top: 0;
+     bottom: 0;
+     width: 15%;
+     font-size: 20px;
+     color: #fff;
+     text-align: center;
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+     opacity: 0.5
+ }
+
+ .wa-swiper-wrap .left {
+     left: 0;
+ }
+
+ .wa-swiper-wrap .right {
+     right: 0;
+ }
+
+ .wa-swiper-wrap .left:after {
+     content: " ";
+     position: absolute;
+     display: inline-block;
+     transform: rotate(-135deg);
+     height: 40px;
+     width: 40px;
+     border-width: 2px 2px 0 0;
+     border-color: #888;
+     border-style: solid;
+     top: 50%;
+     left: 30%
+ }
+
+ .wa-swiper-wrap .right:after {
+     content: " ";
+     position: absolute;
+     display: inline-block;
+     height: 40px;
+     width: 40px;
+     border-width: 2px 2px 0 0;
+     border-color: #888;
+     border-style: solid;
+     transform: rotate(45deg);
+     top: 50%;
+     right: 30%;
+ }
+
+ .wa-swiper-wrap li img {
+     width: 100%;
+ }
+
+ .dot-wrapper {
+     position: absolute;
+     width: 100%;
+     text-align: center;
+     bottom: 10px;
+ }
+
+ .dot-wrapper ol {
+     width: 100%;
+     margin: 0;
+     padding: 0;
+ }
+
+ .dot-wrapper li {
+     list-style: none;
+     display: inline-block;
+     background-color: transparent;
+     padding: 0 10px;
+     cursor: pointer;
+     float: inherit;
+ }
+
+ .dot-wrapper li button {
+     display: block;
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+     background-color: #999;
+     border: 1px solid #999;
+     box-sizing: border-box;
+     outline: none;
+     padding: 0;
+     margin: 0;
+     cursor: pointer;
+     /*transition: .3s;*/
+ }
+
+ .dot-wrapper li .active {
+     background: none;
+     border: 1px solid #26A7C7;
+     box-sizing: border-box;
+ }
