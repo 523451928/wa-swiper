@@ -326,7 +326,7 @@ WaSwiper.prototype.bindEvents = function () {
                 }, 350)
             }
         }
-        if (self.isAutoPlay && self.carouselArr.length > 1) {
+        if (self.options.isAutoPlay && self.carouselArr.length > 1) {
             self.autoPlay()
         }
     }
