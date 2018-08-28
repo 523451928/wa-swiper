@@ -90,6 +90,12 @@
    .wa-swipper-content{
     //  overflow: hidden;
    }
+   .wa-img-item{
+     height: 100%;
+     overflow: hidden;
+     transition: all .3s;
+   }
+   
   .dot-wrapper {
      position: absolute;
      width: 100%;
