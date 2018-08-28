@@ -103,7 +103,8 @@ let WaSwiper = function (opt) {
     itemClearance: 10,
     distanceIndex: 2,
     hasScrollLastCallback: false,
-    minInvolkDistance: 80
+    minTriggerDistance: 80,
+    effects: 'slide'
   }
   this.events = []
   this.options.el = opt.el instanceof HTMLElement ? opt.el : document.querySelector(opt.el)
@@ -294,7 +295,7 @@ WaSwiper.prototype.bindEvents = function () {
   function moveFn(e) {
     e.preventDefault()
     e.stopPropagation()
-    if (this.options.dragDisable) {
+    if (this.options.dragDisable || this.options.effects != 'slide') {
       return
     }
     if (this.options.platform !== 'mobile' && !eventObj.isMouseDown) {
@@ -311,7 +312,7 @@ WaSwiper.prototype.bindEvents = function () {
         document.querySelector('.txt').innerText != '滑动查看详情' ? document.querySelector('.txt').innerText = '滑动查看详情' : ''
         removeClass(arrow, 'rotate')
       }
-    } else if (Math.abs(diffX) > this.options.minInvolkDistance) {
+    } else if (Math.abs(diffX) > this.options.minTriggerDistance) {
       if (this.options.hasScrollLastCallback) { 
         document.querySelector('.txt').innerText != '释放查看详情' ? document.querySelector('.txt').innerText = '释放查看详情' : ''
         addClass(arrow, 'rotate')
@@ -330,8 +331,9 @@ WaSwiper.prototype.bindEvents = function () {
     } else {
       direction = GetSlideDirection(eventObj.startX, eventObj.startY, e.clientX, e.clientY)
     }
-
-    this.setTransition('all .5s')
+    if (this.options.effects == 'slide') {
+      this.setTransition('all .5s')
+    }
     let distance = this.options.platform === 'mobile' ? Math.abs(eventObj.startX - e.changedTouches[0].clientX) : Math.abs(eventObj.startX - e.clientX)
     if (this.options.isLoop) {
       if (direction === 3 && distance > this.options.distance) {
@@ -343,7 +345,7 @@ WaSwiper.prototype.bindEvents = function () {
     } else {
       if (direction === 3 && distance > this.options.distance && this.activeIndex < this.carouselArr.length - 1) {
         this.activeIndex++
-      } else if (direction === 3 && distance > 30 && Math.abs(eventObj.diffX) > this.options.minInvolkDistance) {
+      } else if (direction === 3 && distance > 30 && Math.abs(eventObj.diffX) > this.options.minTriggerDistance) {
         this.trigger('scrollLast')
       }
       if (direction === 4 && distance > 10 && this.activeIndex > 0) {
@@ -357,10 +359,21 @@ WaSwiper.prototype.bindEvents = function () {
     } else {
       this.activeIndex = Math.round(this.activeIndex)
     }
-    
+
     this.changeDotActive()
     this.setWrapperStyle()
-    this.trigger('changeIndex', parseInt(this.activeIndex))
+    let activeIndex = parseInt(this.activeIndex)
+    if (this.options.effects == 'fade' && activeIndex != this.lastActiveIndex) {
+      let imgItems = document.querySelectorAll('.wa-img-item')
+      imgItems[activeIndex].style.transition = 'none'
+      imgItems[activeIndex].style.opacity = 0
+      setTimeout(() => {
+        imgItems[activeIndex].style.transition = 'all .3s'
+        imgItems[activeIndex].style.opacity = 1
+      }, 30)
+    }
+    this.trigger('changeIndex', activeIndex)
+    this.lastActiveIndex = activeIndex
     if (this.options.isLoop) {
       if (this.activeIndex === -0 || this.activeIndex === 0) {
         this.changeDotActive(this.carouselArr.length - 2)
@@ -449,7 +462,7 @@ WaSwiper.prototype.trigger = function(...args) {
 WaSwiper.prototype.off = function (eventType) {
   this.events.forEach((item, index) => {
     if (item.eventType === eventType) {
-      thsi.events.splice(index, 1)
+      this.events.splice(index, 1)
     }
   })
 }
