@@ -53,6 +53,7 @@ let swiper = new WaSwiper({
 | hasDot | 是否生成指示器 | Boolean | true |
 | platform | 运行平台 | String | 'mobile' |
 | hasControllArrow | 在pc上是否生成控制箭头 | Boolean | true |
+| effects | 轮播图效果 | String | slide or fade |
 
 ## 注意事项
 * 要给包裹的容器加上class wa-swiper-wrap
