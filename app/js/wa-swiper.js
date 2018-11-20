@@ -63,18 +63,18 @@ function extend(opts, option) {
   return option
 }
 
-function GetSlideAngle(dx, dy) {
+function getSlideAngle(dx, dy) {
   return Math.atan2(dy, dx) * 180 / Math.PI
 }
 
-function GetSlideDirection(startX, startY, endX, endY) {
+function getSlideDirection(startX, startY, endX, endY) {
   let dy = startY - endY
   let dx = endX - startX
   let result = 0
   if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
   }
   // 1上   2下   3左   4右
-  let angle = GetSlideAngle(dx, dy)
+  let angle = getSlideAngle(dx, dy)
   if (angle >= -45 && angle < 45) {
     result = 4
   } else if (angle >= 45 && angle < 135) {
@@ -327,9 +327,9 @@ WaSwiper.prototype.bindEvents = function () {
     eventObj.isMouseDown = false
     let direction
     if (this.options.platform === 'mobile') {
-      direction = GetSlideDirection(eventObj.startX, eventObj.startY, e.changedTouches[0].clientX, e.changedTouches[0].clientY)
+      direction = getSlideDirection(eventObj.startX, eventObj.startY, e.changedTouches[0].clientX, e.changedTouches[0].clientY)
     } else {
-      direction = GetSlideDirection(eventObj.startX, eventObj.startY, e.clientX, e.clientY)
+      direction = getSlideDirection(eventObj.startX, eventObj.startY, e.clientX, e.clientY)
     }
     if (this.options.effects == 'slide') {
       this.setTransition('all .5s')
